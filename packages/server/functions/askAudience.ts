@@ -14,11 +14,7 @@ export async function askAudience(prompt: string): Promise<string[]> {
     
     Most questions will require 1 or 2 word answers and not need to be answered in full sentences. Remember these answers are going to be suggestions shouted out by audience members.
     
-    Try to make the 3 audience members answers be quite different from each other
-    
-    Here is the first question:
-    
-    Can I get a suggestion for a location`,
+    Try to make the 3 audience members answers be quite different from each other`,
     },
     {
       role: "user",

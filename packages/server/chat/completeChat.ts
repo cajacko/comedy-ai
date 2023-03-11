@@ -4,6 +4,8 @@ import withDevCache from "../utils/withDevCache";
 
 const completeChat = withDevCache(
   async (messages: ChatCompletionRequestMessage[]): Promise<string> => {
+    console.log("Calling openai");
+
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages,

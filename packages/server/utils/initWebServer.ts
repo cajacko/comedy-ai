@@ -14,18 +14,32 @@ app.use(
   })
 );
 
+app.use(express.json());
 app.use(express.static(publicDir));
 
-app.get("*", async (req, res) => {
+app.all("*", async (req, res) => {
   try {
-    const data = await askAudience(
-      "Can I get a suggestion for a genre of TV, like soap or drama"
-    );
+    const body: unknown = req.body;
+
+    if (typeof body !== "object") throw new Error("body is not an object");
+    if (!body) throw new Error("No body present");
+    if (Array.isArray(body))
+      throw new Error("Body is an array, expected object");
+    if (!("question" in body)) throw new Error("No question in body");
+    if (typeof body.question !== "string")
+      throw new Error("body.question is not a string");
+
+    const data = await askAudience(body.question);
 
     res.json({ success: true, data });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, error });
+
+    res.json({
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Unknown error, check logs",
+    });
   }
 });
 
