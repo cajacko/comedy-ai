@@ -2,8 +2,7 @@ import * as Sentry from "@sentry/node";
 import "@sentry/tracing";
 
 Sentry.init({
-  // TODO: Change
-  dsn: "https://c70446fc3ba249b2a9e6d4e6c202f1aa@o134548.ingest.sentry.io/6242955",
+  dsn: "https://df07c80ff7014c3083526410600a240b@o134548.ingest.sentry.io/4504820038565888",
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import http from "http";
 import publicDir from "../config/publicDir";
+import { askAudience } from "../functions/askAudience";
 
 const app = express();
 
@@ -14,6 +15,19 @@ app.use(
 );
 
 app.use(express.static(publicDir));
+
+app.get("*", async (req, res) => {
+  try {
+    const data = await askAudience(
+      "Can I get a suggestion for a genre of TV, like soap or drama"
+    );
+
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error });
+  }
+});
 
 server
   .listen(process.env.PORT || 8080, () => {
