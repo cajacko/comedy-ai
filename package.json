@@ -1,0 +1,17 @@
+{
+  "name": "comedy-ai",
+  "version": "1.0.2",
+  "repository": "https://github.com/cajacko/comedy-ai.git",
+  "author": "Charlie Jackson <charlie@charliejackson.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev:build": "docker build -t charliejackson/node-web-app .",
+    "dev:remove": "docker rm charlie-jackson-comedy-ai || true",
+    "dev:stop": "docker stop charlie-jackson-comedy-ai || true",
+    "dev:run": "yarn dev:stop && yarn dev:remove && yarn dev:build && docker run -e \"NODE_ENV=staging\" --name charlie-jackson-comedy-ai -p 49160:8080 -d charliejackson/node-web-app",
+    "dev:heroku-logs": "heroku logs --tail -a charlie-jackson-server",
+    "dev:heroku-set-build-timeout": "heroku config:set COMPILE_TIMEOUT=3000 -a charlie-jackson-server",
+    "dev:restart": "heroku apps:info -a charlie-jackson-server",
+    "sync": "cp -r packages/server/shared packages/web/src"
+  }
+}

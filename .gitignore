@@ -1,0 +1,73 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# production
+build
+dist
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+/packages/server/public
+
+/data/fitbit/**/*.pdf
+/data/fitbit/**/*.txt
+/data/fitbit/**/*.csv
+/data/fitbit/*/Application
+/data/fitbit/*/Menstrual Health
+/data/fitbit/*/Nutrition
+/data/fitbit/*/Other
+/data/fitbit/*/Personal & Account
+/data/fitbit/*/Physical Activity/altitude-*
+/data/fitbit/*/Physical Activity/calories-*
+/data/fitbit/*/Physical Activity/demographic_vo2_max-*
+/data/fitbit/*/Physical Activity/distance-*
+# /data/fitbit/*/Physical Activity/exercise-*
+/data/fitbit/*/Physical Activity/heart_rate-*
+/data/fitbit/*/Physical Activity/lightly_active_minutes-*
+/data/fitbit/*/Physical Activity/moderately_active_minutes-*
+/data/fitbit/*/Physical Activity/run_vo2_max-*
+/data/fitbit/*/Physical Activity/sedentary_minutes-*
+/data/fitbit/*/Physical Activity/swim_lengths_data-*
+/data/fitbit/*/Physical Activity/time_in_heart_rate_zones-*
+/data/fitbit/*/Physical Activity/very_active_minutes-*
+/data/fitbit/*/Physical Activity/Active Zone Minutes *
+/data/fitbit/*/Sleep/Device Temperature *
+/data/fitbit/*/Sleep/Heart Rate Variability *
+/data/fitbit/*/Sleep/sleep_score.csv
+/data/fitbit/*/Sleep/Computed Temperature - *
+/data/fitbit/*/Sleep/Daily Heart Rate Variability Summary *
+/data/fitbit/*/Sleep/Daily Respiratory Rate Summary *
+/data/fitbit/*/Sleep/Respiratory Rate Summary *
+/data/fitbit/*/Social
+/data/fitbit/*/Stress
+
+/data/withings/**/*.txt
+/data/withings/activities.csv
+/data/withings/signal.csv
+/data/withings/pwv.csv
+/data/withings/note.csv
+/data/withings/manual_spo2.csv
+/data/withings/height.csv
+/data/withings/body_temperature.csv
+/data/withings/aggregates_*
+/data/withings/raw_tracker_*
+/data/withings/raw_bed_*
+/data/withings/raw_tracker_*
+
+

@@ -1,0 +1,17 @@
+.github
+build
+coverage
+dist
+node_modules
+npm-debug.log
+public
+
+packages/mac-server/node_modules
+packages/mac-server/build
+
+packages/server/dist
+packages/server/node_modules
+packages/server/public
+
+packages/web/build
+packages/web/node_modules
