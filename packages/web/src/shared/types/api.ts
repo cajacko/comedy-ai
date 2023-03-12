@@ -1,7 +1,7 @@
 export type NumberOfAnswers = 2 | 3 | 4 | 5;
 
 export interface Api {
-  "/functions/ask-audience": {
+  "/functions/comedy-ai/ask-audience": {
     method: "post";
     request: {
       question: string;
@@ -25,7 +25,7 @@ export type EndpointResponse<K extends EndpointKey> = Endpoint<K>["response"];
 
 // Typescript way of forcing us to have an array of each item without duplicates
 const endpointMap: Record<EndpointKey, undefined> = {
-  "/functions/ask-audience": undefined,
+  "/functions/comedy-ai/ask-audience": undefined,
 };
 
 export const endpoints = Object.keys(endpointMap) as EndpointKey[];

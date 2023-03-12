@@ -5,6 +5,8 @@
   "author": "Charlie Jackson <charlie@charliejackson.com>",
   "license": "MIT",
   "scripts": {
+    "postinstall": "cd packages/web && yarn install",
+    "build": "cd packages/web && yarn build",
     "dev:build": "docker build -t charliejackson/node-web-app .",
     "dev:remove": "docker rm comedy-ai || true",
     "dev:stop": "docker stop comedy-ai || true",

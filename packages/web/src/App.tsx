@@ -158,7 +158,7 @@ function App() {
 
       const thisQuestion = question;
 
-      api("/functions/ask-audience", "post", {
+      api("/functions/comedy-ai/ask-audience", "post", {
         question: thisQuestion,
         conversationId,
         numberOfAnswers: 5,
