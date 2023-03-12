@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cp ../../CNAME public/CNAME",
+    "build": "react-scripts build && cp ../../CNAME build/CNAME",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
