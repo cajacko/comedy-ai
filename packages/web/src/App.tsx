@@ -2,6 +2,8 @@ import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import api from "./utils/api";
 import askAudienceTemplate from "./config/askAudienceTemplate";
+import AudienceSpeech from "./components/AudienceSpeech";
+import Button from "./components/Button";
 
 const GlobalStyle = createGlobalStyle`
   body, #root {
@@ -71,11 +73,80 @@ const Stage = styled.div`
   z-index: 9;
 `;
 
+const ActorSpeech = styled.form`
+  background-color: white;
+  position: absolute;
+  z-index: 11;
+  top: 50px;
+  left: 100px;
+  right: 50px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 10px;
+  cursor: pointer;
+`;
+
+const ActorSpeechBackground = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
+
+const TextInput = styled.input`
+  border: none;
+  position: relative;
+  z-index: 99;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const SubmitContainer = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const Submit = styled(Button)`
+  min-width: 100px;
+  position: relative;
+  z-index: 99;
+`;
+
+const AudienceSpeechContainer = styled(AudienceSpeech)`
+  position: absolute;
+  z-index: 12;
+`;
+
 function App() {
-  const [question, setQuestion] = React.useState("");
+  const input = React.useRef<HTMLInputElement>(null);
   const [history, setHistory] = React.useState<
     Array<{ question: string; answers: string[] }>
-  >([]);
+  >([
+    // {
+    //   question: "Give me a location",
+    //   answers: [
+    //     "A submarine",
+    //     "A crowded elevator!",
+    //     "A tiny coffee shop!",
+    //     "A spaceship cockpit!",
+    //     "A dentist's office!",
+    //   ],
+    // },
+  ]);
+
+  const lastResponse = history[0];
+  const { answers } = lastResponse || {};
+
+  const [question, setQuestion] = React.useState(lastResponse?.question ?? "");
+
   const [conversationId, setConversationId] = React.useState<
     string | undefined
   >();
@@ -83,6 +154,7 @@ function App() {
   const ask = React.useCallback(
     (event: React.FormEvent | React.MouseEvent) => {
       event.preventDefault();
+      input.current?.blur();
 
       const thisQuestion = question;
 
@@ -104,9 +176,39 @@ function App() {
     [question, conversationId]
   );
 
+  const focusOnInput = React.useCallback(() => {
+    input.current?.focus();
+  }, []);
+
   return (
     <>
       <GlobalStyle />
+      <ActorSpeech onSubmit={ask}>
+        <TextInput
+          value={question}
+          onChange={(event) => setQuestion(event.target.value)}
+          placeholder="Ask the audience"
+          ref={input}
+        />
+        <SubmitContainer>
+          <Submit onClick={ask}>Ask</Submit>
+        </SubmitContainer>
+        <ActorSpeechBackground onClick={focusOnInput} />
+      </ActorSpeech>
+      {answers?.map((answer, i) => (
+        <AudienceSpeechContainer
+          key={i}
+          side={!!(i % 2) ? "left" : "right"}
+          style={{
+            right: !!(i % 2) ? 10 : undefined,
+            left: !!(i % 2) ? undefined : 10,
+            bottom: 50 * (i + 1),
+            width: 200,
+          }}
+        >
+          {answer}
+        </AudienceSpeechContainer>
+      ))}
       <Audience />
       <Actor />
       <Background />

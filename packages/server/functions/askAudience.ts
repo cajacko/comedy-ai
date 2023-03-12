@@ -65,8 +65,6 @@ async function askAudience(props: {
     lastUpdated: new Date(),
   };
 
-  console.log(messages);
-
   return capturedGroups;
 }
 
