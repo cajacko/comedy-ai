@@ -1,6 +1,6 @@
-- continue conversation with audience
 - pretty ui
-- can use own api key
 - log in with google so can limit
 - track questions and answers
+
+- can use own api key
 - Template questions in ui

@@ -13,16 +13,20 @@ interface Conversation {
 
 const conversations: Record<string, Conversation | undefined> = {};
 
-async function askAudience(
+async function askAudience(props: {
   template: string;
-  prompt: string,
-  conversationId: string,
-  options: { numberOfAnswers?: NumberOfAnswers } = {}
-): Promise<string[]> {
-  const { numberOfAnswers = 3 } = options;
-  const conversation = conversations[conversationId];
+  prompt: string;
+  conversationId: string;
+  apiKey: string;
+  numberOfAnswers?: NumberOfAnswers;
+}): Promise<string[]> {
+  const { numberOfAnswers = 3 } = props;
+  const conversation = conversations[props.conversationId];
 
-  const startingMessage = template.replace(/{numberOfAnswers}/g, numberOfAnswers.toString());
+  const startingMessage = props.template.replace(
+    /{numberOfAnswers}/g,
+    numberOfAnswers.toString()
+  );
 
   // Continue conversation if it exists, otherwise start a new one
   const messages: Message[] = conversation?.messages ?? [
@@ -34,10 +38,10 @@ async function askAudience(
 
   messages.push({
     role: "user",
-    content: prompt,
+    content: props.prompt,
   });
 
-  const response = await completeChat(messages);
+  const response = await completeChat(messages, props.apiKey);
 
   const regex: RegExp = /Audience member [1-9]:(.*)/gm;
   let match: RegExpExecArray | null;
@@ -56,7 +60,7 @@ async function askAudience(
     content: response,
   });
 
-  conversations[conversationId] = {
+  conversations[props.conversationId] = {
     messages,
     lastUpdated: new Date(),
   };
@@ -73,7 +77,17 @@ const requestHandler: RequestHandler<"/functions/ask-audience"> = async (
   try {
     const conversationId = req.body.conversationId ?? uuid();
 
-    const answers = await askAudience(req.body.template, req.body.question, conversationId, {
+    const apiKey = req.body.openaiApiKey ?? process.env.OPENAI_API_KEY;
+
+    if (!apiKey) {
+      throw new Error("No openai key found, should have found the fallback");
+    }
+
+    const answers = await askAudience({
+      template: req.body.template,
+      prompt: req.body.question,
+      apiKey,
+      conversationId,
       numberOfAnswers: req.body.numberOfAnswers,
     });
 

@@ -8,6 +8,7 @@ export interface Api {
       conversationId?: string;
       numberOfAnswers?: NumberOfAnswers;
       template: string;
+      openaiApiKey?: string;
     };
     response: {
       conversationId: string;
