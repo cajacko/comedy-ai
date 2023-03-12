@@ -17,11 +17,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const stageHeight = "45vh";
+const audienceHeight = "40vh";
+const stageHeight = `calc(${audienceHeight} - 5vh)`;
 
 const Audience = styled.div`
   min-width: 100vw;
-  max-height: 50vh;
+  max-height: ${audienceHeight};
   height: 100%;
   width: 100%;
   position: absolute;
@@ -34,7 +35,6 @@ const Audience = styled.div`
 `;
 
 const Background = styled.div`
-  min-width: 100vw;
   max-height: 75vh;
   height: 100%;
   width: 100%;
