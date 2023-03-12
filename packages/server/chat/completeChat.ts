@@ -2,8 +2,10 @@ import openai from "../utils/openai";
 import { ChatCompletionRequestMessage } from "openai";
 import withDevCache from "../utils/withDevCache";
 
+export type Message = ChatCompletionRequestMessage;
+
 const completeChat = withDevCache(
-  async (messages: ChatCompletionRequestMessage[]): Promise<string> => {
+  async (messages: Message[]): Promise<string> => {
     console.log("Calling openai");
 
     const response = await openai.createChatCompletion({
