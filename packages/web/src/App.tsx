@@ -1,10 +1,75 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
+import styled, { createGlobalStyle } from "styled-components";
 import api from "./utils/api";
 import askAudienceTemplate from "./config/askAudienceTemplate";
+
+const GlobalStyle = createGlobalStyle`
+  body, #root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex: 1;
+    margin: 0;
+    overflow: hidden;
+  }
+`;
+
+const stageHeight = "45vh";
+
+const Audience = styled.div`
+  min-width: 100vw;
+  max-height: 50vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-image: url("/audience.png");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 10;
+`;
+
+const Background = styled.div`
+  min-width: 100vw;
+  max-height: 75vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url("/stage.png");
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 7;
+`;
+
+const Actor = styled.div`
+  height: 30vh;
+  width: 100%;
+  position: absolute;
+  bottom: ${stageHeight};
+  left: 20px;
+  background-image: url("/actor.png");
+  background-position: bottom left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 8;
+`;
+
+const Stage = styled.div`
+  height: ${stageHeight};
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #4e3636;
+  z-index: 9;
+`;
 
 function App() {
   const [question, setQuestion] = React.useState("");
@@ -41,40 +106,11 @@ function App() {
 
   return (
     <>
-      <div style={{ overflow: "auto" }}>
-        <Paper style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <form onSubmit={ask}>
-            <div>
-              <TextField
-                id="ask-the-audience"
-                label="Ask the audience"
-                value={question}
-                onChange={(event) => {
-                  setQuestion(event.target.value);
-                }}
-                style={{ width: "100%" }}
-              />
-            </div>
-            <div>
-              <Button onClick={ask} variant="contained">
-                Ask
-              </Button>
-            </div>
-          </form>
-          <div>
-            {history.map((item, i) => (
-              <div key={i}>
-                <Typography variant="h4">{item.question}</Typography>
-                {item.answers.map((answer, j) => (
-                  <Typography variant="caption" key={j}>
-                    {answer}
-                  </Typography>
-                ))}
-              </div>
-            ))}
-          </div>
-        </Paper>
-      </div>
+      <GlobalStyle />
+      <Audience />
+      <Actor />
+      <Background />
+      <Stage />
     </>
   );
 }
